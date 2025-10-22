@@ -1,0 +1,46 @@
+{
+  "hash": "7ccb9d5c",
+  "configHash": "29a5de9e",
+  "lockfileHash": "068642c1",
+  "browserHash": "3332a693",
+  "optimized": {
+    "vue": {
+      "src": "../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "8c9b4356",
+      "needsInterop": false
+    },
+    "pinia": {
+      "src": "../../node_modules/pinia/dist/pinia.mjs",
+      "file": "pinia.js",
+      "fileHash": "dc9be0f1",
+      "needsInterop": false
+    },
+    "@vercel/analytics": {
+      "src": "../../node_modules/@vercel/analytics/dist/index.mjs",
+      "file": "@vercel_analytics.js",
+      "fileHash": "06f7fdf9",
+      "needsInterop": false
+    },
+    "vue-router": {
+      "src": "../../node_modules/vue-router/dist/vue-router.mjs",
+      "file": "vue-router.js",
+      "fileHash": "c86f48e2",
+      "needsInterop": false
+    },
+    "nprogress": {
+      "src": "../../node_modules/nprogress/nprogress.js",
+      "file": "nprogress.js",
+      "fileHash": "f75321a1",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-IDACCYAP": {
+      "file": "chunk-IDACCYAP.js"
+    },
+    "chunk-BUSYA2B4": {
+      "file": "chunk-BUSYA2B4.js"
+    }
+  }
+}

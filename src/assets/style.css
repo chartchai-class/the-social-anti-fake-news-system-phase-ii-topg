@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  @apply text-4xl mb-8;
+}
+
+.btn-primary {
+  @apply bg-green-600 hover:bg-green-700 text-white font-semibold py-1 px-3 mt-2 rounded shadow;
+}
