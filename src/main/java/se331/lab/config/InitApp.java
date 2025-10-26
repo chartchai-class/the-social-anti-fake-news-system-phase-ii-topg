@@ -1,70 +1,47 @@
 package se331.lab.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import jakarta.transaction.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import lombok.RequiredArgsConstructor;
-import se331.lab.entity.Event;
-import se331.lab.repository.EventRepository;
+import se331.lab.entity.News;
+import se331.lab.repository.NewsRepository;
 
 @Component
 @RequiredArgsConstructor
-public class InitApp implements ApplicationListener<ApplicationReadyEvent>{
+public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
+
     @Autowired
-    final EventRepository eventRepository;
+    final NewsRepository newsRepository;
 
     @Override
     @Transactional
-    public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent){
+    public void onApplicationEvent(ApplicationReadyEvent event) {
 
-        Event tempEvent;
-        tempEvent = eventRepository.save(Event.builder()
-            .category("Academic")
-            .title("Midterm Exam")
-            .description("A time for taking the exam")
-            .location("CAMT Building")
-            .date("3rd Sept")
-            .time("3.00-4.00 pm.")
-            .petsAllowed(false)
-            .build());
+        newsRepository.save(News.builder()
+                .topic("International Peace Summit Brings World Leaders Together")
+                .shortDetail("World leaders gathered for a peace summit to discuss conflict resolution strategies.")
+                .longDetail("World leaders gathered this week for an International Peace Summit aimed at fostering dialogue and reducing global tensions. Delegations from over 40 nations discussed strategies for conflict resolution, humanitarian aid, and sustainable development. The summit concluded with a joint declaration emphasizing the need for diplomacy and cooperation in addressing both regional disputes and global challenges such as climate change and food security.")
+                .trueVotes(131)
+                .falseVotes(41)
+                .reporter("James Smith")
+                .date("2025-08-10")
+                .time("19:00:00")
+                .imageUrl(null)
+                .build());
 
-        tempEvent = eventRepository.save(Event.builder()
-            .category("Academic")
-            .title("Commencement Day")
-            .description("A time for celebration")
-            .location("CMU Convention hall")
-            .date("21th Jan")
-            .time("8.00am-4.00 pm.")
-            .petsAllowed(false)
-            .build()        
-        );
-
-        tempEvent = eventRepository.save(Event.builder()
-            .category("Cultural")
-            .title("Loy Kratong")
-            .description("A time for Krathong")
-            .location("Ping River")
-            .date("21th Nov")
-            .time("8.00-10.00 pm.")
-            .petsAllowed(false)
-            .build()       
-        );
-
-        tempEvent = eventRepository.save(Event.builder()
-            .category("Cultural")
-            .title("Songkran")
-            .description("Let's Play Water")
-            .location("Chiang Mai Moat")
-            .date("13th April")
-            .time("10.00am - 6.00 pm.")
-            .petsAllowed(true)
-            .build()    
-        );
+        newsRepository.save(News.builder()
+                .topic("New Renewable Energy Plant Opens in Thailand")
+                .shortDetail("A new solar power facility promises to generate clean energy for over 100,000 households.")
+                .longDetail("Thailand has opened one of its largest renewable energy facilities to date. The solar power plant will help the country achieve its goal of 30% renewable energy usage by 2030. The project is expected to create hundreds of jobs and reduce annual carbon emissions by over 200,000 tons.")
+                .trueVotes(215)
+                .falseVotes(12)
+                .reporter("Suda Rattanakorn")
+                .date("2025-10-12")
+                .time("10:30:00")
+                .imageUrl(null)
+                .build());
     }
 }

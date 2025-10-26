@@ -1,0 +1,19 @@
+package se331.lab.entity;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class NewsDto {
+    Long id;
+    String topic;
+    String shortDetail;
+    String longDetail;
+    Integer trueVotes;
+    Integer falseVotes;
+    String reporter;
+    String date;
+    String time;
+    String imageUrl;
+}
