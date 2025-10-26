@@ -4,26 +4,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import se331.lab.dao.NewsDao;
 import se331.lab.entity.News;
-import se331.lab.repository.NewsRepository;
 
 @Service
 @RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
-    final NewsRepository newsRepository;
+    final NewsDao newsDao;
 
     @Override
-    public Page<News> getNews(Integer perPage, Integer page) {
-        return newsRepository.findAll(PageRequest.of(page - 1, perPage));
+    public Integer getNewsSize() {
+        return newsDao.getNewsSize();
+    }
+
+    @Override
+    public Page<News> getNews(Integer pageSize, Integer page) {
+        return newsDao.getNews(PageRequest.of(page - 1, pageSize));
     }
 
     @Override
     public News getNews(Long id) {
-        return newsRepository.findById(id).orElse(null);
+        return newsDao.getNews(id);
     }
 
     @Override
     public News save(News news) {
-        return newsRepository.save(news);
+        return newsDao.save(news);
     }
 }
