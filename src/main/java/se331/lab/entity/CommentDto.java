@@ -1,0 +1,30 @@
+package se331.lab.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import se331.lab.entity.Comment;
+
+import java.time.Instant;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CommentDto {
+    private Long id;
+    private Long newsId;      // maps to Comment.news.id
+    private String text;
+    private String vote;
+    private Instant createdAt;
+    //private String imageUrl;
+
+    // Constructor to convert Comment entity to CommentDto
+    public CommentDto(Comment comment) {
+        this.id = comment.getId();
+        this.newsId = comment.getNews().getId();
+        this.text = comment.getText();
+        this.vote = comment.getVote();
+        this.createdAt = comment.getCreatedAt();
+        //this.imageUrl = comment.getImageUrl();
+    }
+}
