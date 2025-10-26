@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import se331.lab.entity.Event;
 import se331.lab.service.EventService;
 import se331.lab.util.LabMapper;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpHeaders;
 
@@ -37,19 +36,7 @@ public class EventController {
         Page<Event> pageOutput;
 
 
-        if (title != null && description != null) {
-            //AND search
-            pageOutput = eventService.getEventsByTitleAndDescription(
-                    title, description, PageRequest.of(page - 1, perPage)
-            );
-        } else if (title != null || description != null) {
-            //OR search
-            String q = title != null ? title : description;
-            pageOutput = eventService.getEvents(q, PageRequest.of(page - 1, perPage));
-        } else {
-            // Default: get all events
-            pageOutput = eventService.getEvents(perPage, page);
-        }
+        pageOutput = eventService.getEvents(perPage, page);
 
 
         HttpHeaders responseHeader = new HttpHeaders();

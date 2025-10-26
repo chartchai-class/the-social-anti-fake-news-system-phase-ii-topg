@@ -8,7 +8,4 @@ public interface EventService {
     Page<Event> getEvents(Integer pageSize, Integer page);
     Event getEvent(Long id);
     Event save(Event event);
-    Page<Event> getEvents(String title, Pageable pageable);
-    Page<Event> getEventsByTitleOrDescription(String title, String description, Pageable pageable);
-    Page<Event> getEventsByTitleAndDescription(String title, String description, Pageable pageable);
 }

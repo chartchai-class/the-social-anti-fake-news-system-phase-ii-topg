@@ -1,6 +1,5 @@
 package se331.lab.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -21,8 +20,5 @@ public class EventDTO {
     String date;
     String time;
     Boolean petsAllowed;
-    EventOrganizerDTO organizer;
     List<String> images;
-    @Builder.Default
-    List<ParticipantDTO> participants = new ArrayList<>();
 }
