@@ -26,13 +26,13 @@ public class NewsController {
     public ResponseEntity<?> getNewsList(
             @RequestParam(value = "_limit", required = false) Integer perPage,
             @RequestParam(value = "_page", required = false) Integer page,
-            @RequestParam(value = "topic", required = false) String topic,
-            @RequestParam(value = "reporter", required = false) String reporter
+            @RequestParam(value = "status", required = false) String status
     ) {
         perPage = (perPage == null) ? 3 : perPage;
         page = (page == null) ? 1 : page;
+        status = (status == null) ? "all" : status;
 
-        Page<News> pageOutput = newsService.getNews(perPage, page);
+        Page<News> pageOutput = newsService.getNews(perPage, page, status);
 
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.set("x-total-count", String.valueOf(pageOutput.getTotalElements()));
@@ -42,6 +42,7 @@ public class NewsController {
                 HttpStatus.OK
         );
     }
+
 
     @GetMapping("news/{id}")
     public ResponseEntity<?> getNews(@PathVariable("id") Long id) {

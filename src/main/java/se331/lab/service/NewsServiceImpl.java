@@ -38,4 +38,11 @@ public class NewsServiceImpl implements NewsService {
         // Search by topic, shortDetail, reporter
         return newsDao.getNewsByTopicOrShortDetailOrReporter(query, query, query, pageable);
     }
+
+    @Override
+    public Page<News> getNews(Integer pageSize, Integer page, String status) {
+        return newsDao.getNews(pageSize, page, status);
+    }
+
+    
 }

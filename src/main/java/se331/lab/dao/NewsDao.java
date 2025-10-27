@@ -12,4 +12,6 @@ public interface NewsDao {
 
     // Search by topic, shortDetail, or reporter
     Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable);
+
+    Page<News> getNews(Integer pageSize, Integer page, String status);
 }
