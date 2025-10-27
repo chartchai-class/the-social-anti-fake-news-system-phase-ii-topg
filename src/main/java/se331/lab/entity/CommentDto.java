@@ -3,7 +3,7 @@ package se331.lab.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import se331.lab.entity.Comment;
+//import se331.lab.entity.Comment;
 
 import java.time.Instant;
 

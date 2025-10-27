@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import lombok.RequiredArgsConstructor;
 import se331.lab.entity.News;
 import se331.lab.service.NewsService;
@@ -49,6 +52,31 @@ public class NewsController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The given id is not found");
         }
     }
+
+    @GetMapping("news/search")
+    public ResponseEntity<?> searchNews(
+            @RequestParam("query") String query,
+            @RequestParam(value = "_page", required = false) Integer page,
+            @RequestParam(value = "_limit", required = false) Integer perPage
+    ) {
+        page = (page == null) ? 1 : page;
+        perPage = (perPage == null) ? 3 : perPage;
+
+        // Pageable object
+        Pageable pageable = PageRequest.of(page - 1, perPage);
+
+        // Call service method
+        Page<News> pageOutput = newsService.getNews(query, pageable);
+
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.set("x-total-count", String.valueOf(pageOutput.getTotalElements()));
+        return new ResponseEntity<>(
+                LabMapper.INSTANCE.getNewsDto(pageOutput.getContent()),
+                responseHeader,
+                HttpStatus.OK
+        );
+    }
+
 
     @PostMapping("/news")
     public ResponseEntity<?> addNews(@RequestBody News news) {

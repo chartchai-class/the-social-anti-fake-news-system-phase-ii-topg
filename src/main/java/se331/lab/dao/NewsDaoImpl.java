@@ -31,4 +31,11 @@ public class NewsDaoImpl implements NewsDao {
     public Integer getNewsSize() {
         return Math.toIntExact(newsRepository.count());
     }
+
+    @Override
+    public Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable) {
+        return newsRepository.findByTopicIgnoreCaseContainingOrShortDetailIgnoreCaseContainingOrReporterIgnoreCaseContaining(
+                topic, shortDetail, reporter, pageable
+        );
+    }
 }

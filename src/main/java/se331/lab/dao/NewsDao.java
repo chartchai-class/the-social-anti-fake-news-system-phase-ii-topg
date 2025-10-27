@@ -9,4 +9,7 @@ public interface NewsDao {
     News getNews(Long id);
     News save(News news);
     Integer getNewsSize();
+
+    // Search by topic, shortDetail, or reporter
+    Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable);
 }
