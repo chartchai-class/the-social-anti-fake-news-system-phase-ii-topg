@@ -26,7 +26,9 @@ public class News {
     String reporter;
     String date;
     String time;
-    String imageUrl;
+
+    @ElementCollection
+    List<String> images;
 
     // One news can have many comments
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)

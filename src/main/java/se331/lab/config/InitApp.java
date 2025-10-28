@@ -36,7 +36,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .reporter("James Smith")
                 .date("2025-08-10")
                 .time("19:00:00")
-                .imageUrl(null)
+                .images(null)
                 .build();
 
         newsRepository.save(news1);
@@ -68,7 +68,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .reporter("Suda Rattanakorn")
                 .date("2025-10-12")
                 .time("10:30:00")
-                .imageUrl(null)
+                .images(null)
                 .build();
 
         newsRepository.save(news2);
@@ -100,7 +100,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .reporter("Alex Johnson")
                 .date("2025-10-20")
                 .time("09:00:00")
-                .imageUrl(null)
+                .images(null)
                 .build();
 
         newsRepository.save(news3);
@@ -114,7 +114,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .reporter("Maria Lopez")
                 .date("2025-10-21")
                 .time("14:15:00")
-                .imageUrl(null)
+                .images(null)
                 .build();
 
         newsRepository.save(news4);
@@ -128,7 +128,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .reporter("Liam Chen")
                 .date("2025-10-22")
                 .time("11:45:00")
-                .imageUrl(null)
+                .images(null)
                 .build();
 
         newsRepository.save(news5);
@@ -142,7 +142,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .reporter("Sophia Martinez")
                 .date("2025-10-23")
                 .time("16:00:00")
-                .imageUrl(null)
+                .images(null)
                 .build();
 
         newsRepository.save(news6);

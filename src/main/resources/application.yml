@@ -21,9 +21,9 @@ spring:
 
 supabase:
   storage:
-    endpoint: https://arxfeevmjpagjkyylqia.storage.supabase.co/storage/v1/s3
-    endpoint_output: https://arxfeevmjpagjkyylqia.storage.supabase.co/storage/v1/object/public
-    bucket: Lab10_Supabase
+    endpoint: https://xwueeudpdeawjvnzmlzr.storage.supabase.co/storage/v1/s3
+    endpoint_output: https://xwueeudpdeawjvnzmlzr.storage.supabase.co/storage/v1/object/public
+    bucket: images
     region: ap-southeast-1
-    accessKey: 1d45f1e1d4a904c950a8251c7a1d317e
-    secretKey: 358719e0aa2c4d8dcbfaae4474c6201aac563ac67df2cf9f53eda38ad0d337ad
+    accessKey: eff3e4852502f15e0861cdd7b136bb7d
+    secretKey: ed9bda7babbea05c2298d3f7a0b0b3fe118683053c5be8c6689264a53dbb8e94
