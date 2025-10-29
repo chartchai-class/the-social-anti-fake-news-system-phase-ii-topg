@@ -12,7 +12,7 @@ public class NewsDto {
     String longDetail;
     Integer trueVotes;
     Integer falseVotes;
-    String reporter;
+    String reporterName;
     String date;
     String time;
     String imageUrl;
