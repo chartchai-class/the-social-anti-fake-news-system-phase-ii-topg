@@ -164,6 +164,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         newsRepository.save(news6);
 // --- Initialize default users ---
         addUser(); // Call the method to add users
+                reporter1.setUser(user1);
+
+                user1.setReporter(reporter1);
+
+                reporter2.setUser(user2);
+
+                user2.setReporter(reporter2);
+                
     }
 
     private void addUser() {
