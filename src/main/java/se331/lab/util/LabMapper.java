@@ -4,10 +4,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import se331.lab.entity.News;
-import se331.lab.entity.NewsDto;
-import se331.lab.entity.Reporter;
-import se331.lab.entity.ReporterDTO;
+import se331.lab.entity.*;
 
 @Mapper
 public interface LabMapper {
@@ -24,4 +21,6 @@ public interface LabMapper {
     ReporterDTO getReporterDTO(Reporter reporter);
 
     List<ReporterDTO> getReporterDTO(List<Reporter> reporters);
+    @Mapping(target = "roles", source = "user.roles")
+    ReporterAuthDTO getReporterAuthDTO(Reporter organizer);
 }
