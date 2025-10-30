@@ -23,12 +23,16 @@ public class News {
 
     Integer trueVotes;
     Integer falseVotes;
-    String reporter;
     String date;
     String time;
 
     @ElementCollection
     List<String> images;
+
+    // Many news belong to one reporter
+    @ManyToOne
+    @JoinColumn(name = "reporter_id")
+    private Reporter reporter;
 
     // One news can have many comments
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
