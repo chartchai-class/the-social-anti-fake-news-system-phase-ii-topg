@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: 331-backend
+  profiles:
+    active:
+      - db    
+  datasource:
+    url: jdbc:mysql://localhost:3306/newsdb?createDatabaseIfNotExist=true&autoReconnect=true&characterEncoding=UTF-8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: create-drop  # or create-drop if you want it dropped on shutdown
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+supabase:
+  storage:
+    endpoint: https://xwueeudpdeawjvnzmlzr.storage.supabase.co/storage/v1/s3
+    endpoint_output: https://xwueeudpdeawjvnzmlzr.storage.supabase.co/storage/v1/object/public
+    bucket: images
+    region: ap-southeast-1
+    accessKey: eff3e4852502f15e0861cdd7b136bb7d
+    secretKey: ed9bda7babbea05c2298d3f7a0b0b3fe118683053c5be8c6689264a53dbb8e94
+
+application:
+  security:
+    jwt:
+      secret-key: d877411badd3edc0f978c362f2497a192976393b7d45d4c7c910846a2226ddfcbb141b9ac1aca1aa760b94d6fc4b3eb10d96b55111b2fafb28da24b4e4548e55
+      expiration: 86400000 # 1 day in milliseconds
+      refresh-token:
+        expiration: 604800000 # 7 days in milliseconds
