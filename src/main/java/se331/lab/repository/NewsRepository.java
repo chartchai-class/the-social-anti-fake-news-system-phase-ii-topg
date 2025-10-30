@@ -19,7 +19,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
            """)
     Page<News> findByStatus(@Param("status") String status, Pageable pageable);
 
-    Page<News> findByTopicIgnoreCaseContainingOrShortDetailIgnoreCaseContainingOrReporterIgnoreCaseContaining(
-            String topic, String shortDetail, String reporter, Pageable pageable
+    Page<News> findByTopicIgnoreCaseContainingOrShortDetailIgnoreCaseContainingOrReporter_NameIgnoreCaseContaining(
+            String topic, String shortDetail, String reporterName, Pageable pageable
     );
 }
