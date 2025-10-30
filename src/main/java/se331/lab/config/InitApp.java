@@ -33,7 +33,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final ReporterRepository reporterRepository;
     
     User user1, user2, user3; // User objects for initialization
-    Reporter reporter1, reporter2;
+    Reporter reporter1, reporter2,reporter3;
 
     @Override
     @Transactional
@@ -43,6 +43,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .name("John Pork").build());
         reporter2 = reporterRepository.save(Reporter.builder()
                 .name("Tim Cheese").build());
+        reporter3 = reporterRepository.save(Reporter.builder()
+                .name("Simon Claw").build());
 
         // --- First news item with two comments ---
         News news1 = News.builder()
@@ -171,6 +173,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 reporter2.setUser(user2);
 
                 user2.setReporter(reporter2);
+
+                reporter3.setUser(user3);
+
+                user3.setReporter(reporter3);
                 
     }
 
@@ -187,28 +193,31 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build();
 
         user2 = User.builder()
-                .username("user")
-                .password(encoder.encode("user"))
-                .firstname("user")
-                .lastname("user")
-                .email("enabled@user.com")
+                .username("reporter")
+                .password(encoder.encode("reporter"))
+                .firstname("reporter")
+                .lastname("reporter")
+                .email("enabled@reporter.com")
                 .enabled(true)
                 .build();
 
         user3 = User.builder()
-                .username("disableUser")
-                .password(encoder.encode("disableUser"))
-                .firstname("disableUser")
-                .lastname("disableUser")
-                .email("disableUser@user.com")
-                .enabled(false)
+                .username("reader")
+                .password(encoder.encode("reader"))
+                .firstname("reader")
+                .lastname("reader")
+                .email("enabled@reader.com")
+                .enabled(true)
                 .build();
 
-        user1.getRoles().add(Role.ROLE_USER);
+        user1.getRoles().add(Role.ROLE_REPORTER);
+        user1.getRoles().add(Role.ROLE_READER);
         user1.getRoles().add(Role.ROLE_ADMIN);
 
-        user2.getRoles().add(Role.ROLE_USER);
-        user3.getRoles().add(Role.ROLE_USER);
+        user2.getRoles().add(Role.ROLE_REPORTER);
+        user2.getRoles().add(Role.ROLE_READER);
+
+        user3.getRoles().add(Role.ROLE_READER);
 
         userRepository.save(user1);
         userRepository.save(user2);

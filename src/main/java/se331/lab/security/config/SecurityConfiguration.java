@@ -41,8 +41,6 @@ public class SecurityConfiguration {
              .csrf((crsf) -> crsf.disable())
             .authorizeHttpRequests((authorize) -> {
               authorize.requestMatchers("/api/v1/auth/**").permitAll()
-                      .requestMatchers(HttpMethod.GET,"/news","news/**").permitAll()
-                      .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .anyRequest().authenticated();
 
      })
