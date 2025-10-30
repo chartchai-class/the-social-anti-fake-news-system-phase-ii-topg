@@ -49,7 +49,7 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
             .refreshToken(refreshToken)
-            .user(LabMapper.INSTANCE.getReporterDTO(user.getReporter()))
+            .user(LabMapper.INSTANCE.getReporterAuthDTO(user.getReporter()))
         .build();
   }
 
@@ -70,7 +70,7 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
-            .user(LabMapper.INSTANCE.getReporterDTO(user.getReporter()))
+            .user(LabMapper.INSTANCE.getReporterAuthDTO(user.getReporter()))
             .build();
   }
 
