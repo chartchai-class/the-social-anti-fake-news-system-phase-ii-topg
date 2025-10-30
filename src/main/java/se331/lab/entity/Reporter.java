@@ -26,6 +26,6 @@ public class Reporter {
     private List<News> newsList = new ArrayList<>();
 
     @OneToOne
-
+    @JoinColumn(name = "user_id", unique = true)
     User user;
 }

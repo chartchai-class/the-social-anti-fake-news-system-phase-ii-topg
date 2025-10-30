@@ -3,6 +3,7 @@ package se331.lab.controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,8 +13,11 @@ import org.springframework.data.domain.Pageable;
 
 import lombok.RequiredArgsConstructor;
 import se331.lab.entity.News;
+import se331.lab.repository.ReporterRepository;
 import se331.lab.service.NewsService;
 import se331.lab.util.LabMapper;
+import se331.lab.security.user.User;
+import se331.lab.entity.Reporter;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @Controller
@@ -21,6 +25,7 @@ import se331.lab.util.LabMapper;
 public class NewsController {
 
     final NewsService newsService;
+    final ReporterRepository reporterRepository;
 
     @GetMapping("news")
     public ResponseEntity<?> getNewsList(
@@ -81,7 +86,19 @@ public class NewsController {
 
     @PostMapping("/news")
     public ResponseEntity<?> addNews(@RequestBody News news) {
+        // Get currently logged-in user
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Find the reporter associated with this user
+        Reporter reporter = reporterRepository.findByUser(currentUser)
+                .orElseThrow(() -> new RuntimeException("Reporter not found for user"));
+
+        // Set reporter on the news before saving
+        news.setReporter(reporter);
+
+        // Save news
         News output = newsService.save(news);
+
         return ResponseEntity.ok(LabMapper.INSTANCE.getNewsDto(output));
     }
 }
