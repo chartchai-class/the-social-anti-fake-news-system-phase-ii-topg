@@ -31,20 +31,31 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final CommentRepository commentRepository;
     final UserRepository userRepository;
     final ReporterRepository reporterRepository;
-    
-    User user1, user2, user3; // User objects for initialization
-    Reporter reporter1, reporter2;
+
+    User user1, user2, user3; // Users
+    Reporter reporter1, reporter2; // Reporters
 
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
-        reporter1 = reporterRepository.save(Reporter.builder()
-                .name("John Pork").build());
-        reporter2 = reporterRepository.save(Reporter.builder()
-                .name("Tim Cheese").build());
+        // --- Initialize default users ---
+        addUser();
 
-        // --- First news item with two comments ---
+        // --- Create reporters and assign users immediately ---
+        reporter1 = Reporter.builder()
+                .name("John Pork")
+                .user(user1)
+                .build();
+
+        reporter2 = Reporter.builder()
+                .name("Tim Cheese")
+                .user(user2)
+                .build();
+
+        reporterRepository.saveAll(List.of(reporter1, reporter2));
+
+        // --- First news item ---
         News news1 = News.builder()
                 .topic("International Peace Summit Brings World Leaders Together")
                 .shortDetail("World leaders gathered for a peace summit to discuss conflict resolution strategies.")
@@ -54,9 +65,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("2025-08-10")
                 .time("19:00:00")
                 .images(null)
+                .reporter(reporter1)
                 .build();
-
-        news1.setReporter(reporter1);
         newsRepository.save(news1);
 
         Comment comment1a = Comment.builder()
@@ -75,8 +85,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         commentRepository.saveAll(List.of(comment1a, comment1b));
 
-
-        // --- Second news item with two comments ---
+        // --- Second news item ---
         News news2 = News.builder()
                 .topic("New Renewable Energy Plant Opens in Thailand")
                 .shortDetail("A new solar power facility promises to generate clean energy for over 100,000 households.")
@@ -86,8 +95,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("2025-10-12")
                 .time("10:30:00")
                 .images(null)
+                .reporter(reporter1)
                 .build();
-        news2.setReporter(reporter1);
         newsRepository.save(news2);
 
         Comment comment2a = Comment.builder()
@@ -106,8 +115,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         commentRepository.saveAll(List.of(comment2a, comment2b));
 
-
-        // More news to test Pagination
+        // --- More news items ---
         News news3 = News.builder()
                 .topic("Tech Giants Release New AI Tools")
                 .shortDetail("Major tech companies unveil cutting-edge AI applications for businesses and consumers.")
@@ -117,9 +125,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("2025-10-20")
                 .time("09:00:00")
                 .images(null)
+                .reporter(reporter2)
                 .build();
-
-        news3.setReporter(reporter2);
         newsRepository.save(news3);
 
         News news4 = News.builder()
@@ -131,8 +138,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("2025-10-21")
                 .time("14:15:00")
                 .images(null)
+                .reporter(reporter1)
                 .build();
-        news4.setReporter(reporter1);
         newsRepository.save(news4);
 
         News news5 = News.builder()
@@ -144,9 +151,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("2025-10-22")
                 .time("11:45:00")
                 .images(null)
+                .reporter(reporter2)
                 .build();
-
-        news5.setReporter(reporter2);        
         newsRepository.save(news5);
 
         News news6 = News.builder()
@@ -158,20 +164,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("2025-10-23")
                 .time("16:00:00")
                 .images(null)
+                .reporter(reporter2)
                 .build();
-
-        news6.setReporter(reporter2);
         newsRepository.save(news6);
-// --- Initialize default users ---
-        addUser(); // Call the method to add users
-                reporter1.setUser(user1);
-
-                user1.setReporter(reporter1);
-
-                reporter2.setUser(user2);
-
-                user2.setReporter(reporter2);
-                
     }
 
     private void addUser() {
@@ -206,12 +201,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         user1.getRoles().add(Role.ROLE_USER);
         user1.getRoles().add(Role.ROLE_ADMIN);
-
         user2.getRoles().add(Role.ROLE_USER);
         user3.getRoles().add(Role.ROLE_USER);
 
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
+        userRepository.saveAll(List.of(user1, user2, user3));
     }
 }
