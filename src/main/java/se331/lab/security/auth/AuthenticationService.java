@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import se331.lab.entity.Reporter;
 import se331.lab.security.config.JwtService;
 import se331.lab.security.token.Token;
 import se331.lab.security.token.TokenRepository;
@@ -19,7 +20,8 @@ import se331.lab.security.user.Role;
 import se331.lab.security.user.User;
 import se331.lab.security.user.UserRepository;
 import se331.lab.util.LabMapper;
-
+import se331.lab.entity.Reporter;
+import se331.lab.repository.ReporterRepository;
 import java.io.IOException;
 import java.util.List;
 
@@ -31,29 +33,50 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+  private final ReporterRepository reporterRepository;
 
-  public AuthenticationResponse register(RegisterRequest request) {
-    User user = User.builder()
-            .username(request.getUsername())
-            .firstname(request.getFirstname())
-            .lastname(request.getLastname())
-            .email(request.getEmail())
-            .password(passwordEncoder.encode(request.getPassword()))
-            .roles(List.of(Role.ROLE_REPORTER))
-            .enabled(true)
-            .build();
-    var savedUser = repository.save(user);
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
-    saveUserToken(savedUser, jwtToken);
-    return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-            .user(LabMapper.INSTANCE.getReporterAuthDTO(user.getReporter()))
-        .build();
-  }
+    public AuthenticationResponse register(RegisterRequest request) {
+        // 1️⃣ Create user
+        User user = User.builder()
+                .username(request.getUsername())
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .roles(List.of(Role.ROLE_READER))
+                .enabled(true)
+                .build();
 
-  public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        // 2️⃣ Save user first (so it has an ID)
+        var savedUser = repository.save(user);
+
+        // 3️⃣ Auto-create and link Reporter
+        Reporter reporter = Reporter.builder()
+                .name(savedUser.getFirstname() + " " + savedUser.getLastname())
+                .user(savedUser)
+                .build();
+
+        reporterRepository.save(reporter);
+
+        // 4️⃣ Link back (so user.getReporter() isn't null)
+        savedUser.setReporter(reporter);
+        repository.save(savedUser);
+
+        // 5️⃣ Generate tokens
+        var jwtToken = jwtService.generateToken(savedUser);
+        var refreshToken = jwtService.generateRefreshToken(savedUser);
+        saveUserToken(savedUser, jwtToken);
+
+        // 6️⃣ Return response
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .user(LabMapper.INSTANCE.getReporterAuthDTO(reporter))
+                .build();
+    }
+
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                     request.getUsername(),
