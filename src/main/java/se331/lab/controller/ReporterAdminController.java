@@ -31,7 +31,7 @@ public class ReporterAdminController {
                 .toList();
     }
 
-    // 🧩 PATCH /admin/users/{id}/promote?role=ROLE_ADMIN
+    // PATCH /admin/users/{id}/promote?role=ROLE_ADMIN
     @PatchMapping("/users/{id}/promote")
     public ResponseEntity<?> promoteUser(@PathVariable Integer id, @RequestParam String role) {
         var user = userRepository.findById(id).orElse(null);

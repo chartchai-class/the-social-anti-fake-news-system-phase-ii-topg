@@ -36,7 +36,6 @@ public class AuthenticationService {
   private final ReporterRepository reporterRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        // 1️⃣ Create user
         User user = User.builder()
                 .username(request.getUsername())
                 .firstname(request.getFirstname())
@@ -47,10 +46,8 @@ public class AuthenticationService {
                 .enabled(true)
                 .build();
 
-        // 2️⃣ Save user first (so it has an ID)
         var savedUser = repository.save(user);
 
-        // 3️⃣ Auto-create and link Reporter
         Reporter reporter = Reporter.builder()
                 .name(savedUser.getFirstname() + " " + savedUser.getLastname())
                 .user(savedUser)
@@ -58,16 +55,13 @@ public class AuthenticationService {
 
         reporterRepository.save(reporter);
 
-        // 4️⃣ Link back (so user.getReporter() isn't null)
         savedUser.setReporter(reporter);
         repository.save(savedUser);
 
-        // 5️⃣ Generate tokens
         var jwtToken = jwtService.generateToken(savedUser);
         var refreshToken = jwtService.generateRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);
 
-        // 6️⃣ Return response
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
