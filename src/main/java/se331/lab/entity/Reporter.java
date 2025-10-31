@@ -20,6 +20,17 @@ public class Reporter {
 
     private String name;
 
+    public String getProfileImage() {
+    return profileImage;
+}
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    @Column(length = 1000)
+    private String profileImage;
+
     // One reporter can have many news items
     @OneToMany(mappedBy = "reporter", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

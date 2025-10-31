@@ -54,6 +54,7 @@ public class AuthenticationService {
         Reporter reporter = Reporter.builder()
                 .name(savedUser.getFirstname() + " " + savedUser.getLastname())
                 .user(savedUser)
+                .profileImage(request.getProfileImage())
                 .build();
 
         reporterRepository.save(reporter);

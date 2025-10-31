@@ -14,5 +14,6 @@ public class ProfileDTO {
     private String email;
     private String username;
     private List<Role> roles;
+    private String profileImage;
 }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 
+
 @Controller
 @RequiredArgsConstructor
 public class SupabaseController {
@@ -18,12 +19,15 @@ public class SupabaseController {
     final SupabaseStorageService supabaseStorageService;
 
     @PostMapping("/uploadFile")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             String fileUrl = supabaseStorageService.uploadFile(file);
-            return ResponseEntity.ok(fileUrl);
+            return ResponseEntity.ok(Map.of(
+                "name", fileUrl,
+                "url", fileUrl
+            )); // ✅ vue-media-upload compatible
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error uploading file: " + e.getMessage());
+            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
         }
     }
 
