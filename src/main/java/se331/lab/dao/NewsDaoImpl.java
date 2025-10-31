@@ -35,7 +35,7 @@ public class NewsDaoImpl implements NewsDao {
 
     @Override
     public Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable) {
-        return newsRepository.findByTopicIgnoreCaseContainingOrShortDetailIgnoreCaseContainingOrReporterIgnoreCaseContaining(
+        return newsRepository.findByTopicIgnoreCaseContainingOrShortDetailIgnoreCaseContainingOrReporter_NameIgnoreCaseContaining(
                 topic, shortDetail, reporter, pageable
         );
     }
