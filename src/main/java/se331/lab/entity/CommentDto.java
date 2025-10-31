@@ -6,25 +6,26 @@ import lombok.NoArgsConstructor;
 //import se331.lab.entity.Comment;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentDto {
     private Long id;
-    private Long newsId;      // maps to Comment.news.id
+    private Long newsId;      
     private String text;
     private String vote;
     private Instant createdAt;
-    //private String imageUrl;
+    private List<String> images;
 
-    // Constructor to convert Comment entity to CommentDto
+    // Convert Comment entity to DTO
     public CommentDto(Comment comment) {
         this.id = comment.getId();
         this.newsId = comment.getNews().getId();
         this.text = comment.getText();
         this.vote = comment.getVote();
         this.createdAt = comment.getCreatedAt();
-        //this.imageUrl = comment.getImageUrl();
+        this.images = comment.getImages();
     }
 }

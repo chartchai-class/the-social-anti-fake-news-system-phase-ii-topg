@@ -39,6 +39,7 @@ public class CommentController {
                 .vote(payload.getVote())
                 .createdAt(payload.getCreatedAt())
                 .news(news)
+                .images(payload.getImages())  // store images here
                 .build();
 
         Comment saved = commentRepository.save(comment);
