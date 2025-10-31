@@ -79,15 +79,61 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .createdAt(Instant.now())
                 .news(news1)
                 .build();
-
-        Comment comment1b = Comment.builder()
+Comment comment1b = Comment.builder()
                 .text("I disagree with some points, but overall good coverage.")
                 .vote("false")
                 .createdAt(Instant.now())
                 .news(news1)
                 .build();
-
-        commentRepository.saveAll(List.of(comment1a, comment1b));
+Comment comment1c = Comment.builder()
+                .text("This is exactly what I needed to read today. Great perspective!")
+                .vote("true")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+Comment comment1d = Comment.builder()
+                .text("The analysis could have gone deeper into the underlying issues.")
+                .vote("false")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+Comment comment1e = Comment.builder()
+                .text("Well-researched and balanced reporting. Thank you for this.")
+                .vote("true")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+Comment comment1f = Comment.builder()
+                .text("I think the article missed some important context about the situation.")
+                .vote("false")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+Comment comment1g = Comment.builder()
+                .text("Finally, someone is talking about this! More coverage needed.")
+                .vote("true")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+Comment comment1h = Comment.builder()
+                .text("Interesting read, though I would have liked to see more data included.")
+                .vote("true")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+Comment comment1i = Comment.builder()
+                .text("This seems biased. The other side of the story wasn't fairly represented.")
+                .vote("false")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+Comment comment1j = Comment.builder()
+                .text("Shared this with my colleagues. Everyone should read this!")
+                .vote("true")
+                .createdAt(Instant.now())
+                .news(news1)
+                .build();
+commentRepository.saveAll(List.of(comment1a, comment1b, comment1c, comment1d, comment1e, comment1f, comment1g, comment1h, comment1i, comment1j));
 
         // --- Second news item ---
         News news2 = News.builder()
@@ -171,6 +217,188 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .reporter(reporter2)
                 .build();
         newsRepository.save(news6);
+
+        News news7 = News.builder()
+                .topic("Major Tech Company Announces AI Breakthrough")
+                .shortDetail("Revolutionary language model promises human-level reasoning capabilities.")
+                .longDetail("A leading technology firm unveiled its latest artificial intelligence system today, claiming significant advances in logical reasoning and problem-solving. The new model reportedly outperforms previous systems on complex mathematical proofs and scientific analysis. Industry experts are calling it a potential game-changer for AI applications in research and development.")
+                .trueVotes(45)
+                .falseVotes(12)
+                .date("2025-10-29")
+                .time("09:30:00")
+                .images(null)
+                .reporter(reporter1)
+                .build();
+        newsRepository.save(news7);
+
+News news8 = News.builder()
+                .topic("Local School District Proposes Extended Learning Program")
+                .shortDetail("New initiative aims to provide after-school tutoring and enrichment activities.")
+                .longDetail("The school board voted unanimously to approve funding for an expanded after-school program beginning next semester. The initiative will offer free tutoring in core subjects, arts and music classes, and STEM activities for students in grades K-8. Parents have expressed strong support for the program, which addresses concerns about learning gaps and childcare needs.")
+                .trueVotes(67)
+                .falseVotes(8)
+                .date("2025-10-28")
+                .time("18:45:00")
+                .images(null)
+                .reporter(reporter3)
+                .build();
+        newsRepository.save(news8);
+
+News news9 = News.builder()
+                .topic("Rare Species of Whale Spotted Off Coastal Waters")
+                .shortDetail("Marine biologists celebrate sighting of endangered blue whale.")
+                .longDetail("A team of marine researchers documented a rare blue whale approximately 15 miles offshore yesterday morning. The sighting marks only the third confirmed appearance of the species in these waters in the past decade. Conservationists view this as a positive sign for ocean health and whale population recovery efforts following decades of protection.")
+                .trueVotes(89)
+                .falseVotes(3)
+                .date("2025-10-27")
+                .time("11:20:00")
+                .images(null)
+                .reporter(reporter2)
+                .build();
+        newsRepository.save(news9);
+
+News news10 = News.builder()
+                .topic("Downtown Construction Project Faces Delays")
+                .shortDetail("New transit hub completion pushed back six months due to supply issues.")
+                .longDetail("City officials announced that the highly anticipated downtown transit center will not open until next summer. The delay is attributed to supply chain disruptions affecting steel and electrical components. The project, initially budgeted at $120 million, may see cost overruns of up to 15%. Commuters and local businesses have voiced frustration over the extended timeline.")
+                .trueVotes(34)
+                .falseVotes(28)
+                .date("2025-10-26")
+                .time("14:15:00")
+                .images(null)
+                .reporter(reporter1)
+                .build();
+        newsRepository.save(news10);
+
+News news11 = News.builder()
+                .topic("Community Garden Initiative Transforms Vacant Lot")
+                .shortDetail("Neighbors unite to create green space in urban neighborhood.")
+                .longDetail("What was once an abandoned lot is now a thriving community garden thanks to local residents who organized cleanup efforts and secured city permits. The space now features 40 raised beds, a composting area, and benches for gathering. Organizers say the garden has brought neighbors together and provides fresh produce for families in the area.")
+                .trueVotes(102)
+                .falseVotes(5)
+                .date("2025-10-25")
+                .time("10:00:00")
+                .images(null)
+                .reporter(reporter3)
+                .build();
+        newsRepository.save(news11);
+
+News news12 = News.builder()
+                .topic("Hospital Opens New Cancer Treatment Center")
+                .shortDetail("State-of-the-art facility offers advanced radiation therapy options.")
+                .longDetail("Regional Medical Center celebrated the grand opening of its comprehensive cancer care wing today. The 50,000 square-foot facility houses the latest in radiation therapy equipment, including proton beam technology. It also features private consultation rooms, a wellness center, and support group spaces. Oncologists estimate the center will serve over 2,000 patients annually.")
+                .trueVotes(78)
+                .falseVotes(6)
+                .date("2025-10-24")
+                .time("13:30:00")
+                .images(null)
+                .reporter(reporter2)
+                .build();
+        newsRepository.save(news12);
+
+News news13 = News.builder()
+                .topic("Local Restaurant Wins National Culinary Award")
+                .shortDetail("Chef Maria Rodriguez recognized for innovative farm-to-table cuisine.")
+                .longDetail("A hometown restaurant has earned top honors at the National Restaurant Association's annual awards ceremony. Chef Rodriguez's seasonal menu and commitment to sourcing ingredients from local farms impressed judges. The restaurant has seen a surge in reservations since the announcement, with wait times now extending several weeks for prime dinner slots.")
+                .trueVotes(56)
+                .falseVotes(4)
+                .date("2025-10-22")
+                .time("19:00:00")
+                .images(null)
+                .reporter(reporter1)
+                .build();
+        newsRepository.save(news13);
+
+News news14 = News.builder()
+                .topic("Study Links Exercise to Improved Cognitive Function")
+                .shortDetail("University research shows 30 minutes daily activity boosts memory.")
+                .longDetail("Researchers at the University Medical School published findings from a five-year study involving 3,000 participants. Results indicate that regular moderate exercise significantly improves memory retention and cognitive processing speed, particularly in adults over 50. The study adds to growing evidence supporting physical activity as a key factor in preventing age-related cognitive decline.")
+                .trueVotes(91)
+                .falseVotes(15)
+                .date("2025-10-21")
+                .time("08:00:00")
+                .images(null)
+                .reporter(reporter3)
+                .build();
+        newsRepository.save(news14);
+
+News news15 = News.builder()
+                .topic("Electric Vehicle Sales Surge in Third Quarter")
+                .shortDetail("EV purchases up 40% compared to same period last year.")
+                .longDetail("The automotive industry is experiencing a dramatic shift as electric vehicle adoption accelerates nationwide. Analysts attribute the growth to improved battery range, expanded charging infrastructure, and new tax incentives. Major manufacturers report waiting lists for popular models, while dealers are increasing their EV inventory to meet demand.")
+                .trueVotes(72)
+                .falseVotes(31)
+                .date("2025-10-20")
+                .time("15:45:00")
+                .images(null)
+                .reporter(reporter2)
+                .build();
+        newsRepository.save(news15);
+
+News news16 = News.builder()
+                .topic("Historic Theater Undergoes Restoration")
+                .shortDetail("Century-old venue to reopen next spring with modern amenities.")
+                .longDetail("The beloved Grand Theater, which closed two years ago due to structural concerns, is midway through an extensive renovation project. Workers are carefully restoring original architectural details while adding updated seating, acoustics, and accessibility features. The $8 million project is funded through a combination of private donations and historic preservation grants.")
+                .trueVotes(43)
+                .falseVotes(7)
+                .date("2025-10-19")
+                .time("12:00:00")
+                .images(null)
+                .reporter(reporter1)
+                .build();
+        newsRepository.save(news16);
+
+News news17 = News.builder()
+                .topic("Youth Soccer League Expands to Include All Skill Levels")
+                .shortDetail("New recreational division ensures every child can participate.")
+                .longDetail("In response to parent feedback, the youth soccer association has launched a non-competitive division focused on skill development and fun rather than winning. The program has already enrolled 200 children who previously felt intimidated by competitive play. Coaches emphasize teamwork, individual improvement, and positive experiences for all participants.")
+                .trueVotes(85)
+                .falseVotes(9)
+                .date("2025-10-18")
+                .time("17:30:00")
+                .images(null)
+                .reporter(reporter3)
+                .build();
+        newsRepository.save(news17);
+
+News news18 = News.builder()
+                .topic("Cybersecurity Firm Detects New Phishing Campaign")
+                .shortDetail("Experts warn of sophisticated email scam targeting small businesses.")
+                .longDetail("A cybersecurity company has identified a widespread phishing operation that mimics legitimate vendor invoices and payment requests. The scam has already cost businesses an estimated $2 million nationwide. Security experts recommend employee training on identifying suspicious emails, implementing two-factor authentication, and verifying payment requests through secondary channels.")
+                .trueVotes(38)
+                .falseVotes(11)
+                .date("2025-10-17")
+                .time("09:15:00")
+                .images(null)
+                .reporter(reporter2)
+                .build();
+        newsRepository.save(news18);
+
+News news19 = News.builder()
+                .topic("City Park to Feature New Inclusive Playground")
+                .shortDetail("Accessible equipment allows children of all abilities to play together.")
+                .longDetail("Construction begins next month on a fully accessible playground at Riverside Park. The design includes wheelchair-accessible ramps, sensory play elements, and equipment suitable for children with various physical and developmental needs. The project was championed by parents of children with disabilities who sought a space where all kids could play side by side.")
+                .trueVotes(118)
+                .falseVotes(2)
+                .date("2025-10-16")
+                .time("11:45:00")
+                .images(null)
+                .reporter(reporter1)
+                .build();
+        newsRepository.save(news19);
+
+News news20 = News.builder()
+                .topic("Coffee Shop Chain Switches to Compostable Packaging")
+                .shortDetail("Environmental initiative eliminates 5 million plastic cups annually.")
+                .longDetail("A popular coffee chain announced a complete transition to compostable cups, lids, and straws across all locations. The company partnered with industrial composting facilities to ensure proper disposal. Environmental groups have praised the move as a significant step toward reducing single-use plastic waste, though some customers report the new materials feel different.")
+                .trueVotes(94)
+                .falseVotes(22)
+                .date("2025-10-15")
+                .time("07:30:00")
+                .images(null)
+                .reporter(reporter3)
+                .build();
+        newsRepository.save(news20);
 // --- Initialize default users ---
         addUser(); // Call the method to add users
                 reporter1.setUser(user1);
