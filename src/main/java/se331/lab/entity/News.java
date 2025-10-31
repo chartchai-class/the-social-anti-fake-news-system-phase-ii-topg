@@ -15,6 +15,7 @@ public class News {
     Long id;
 
     String topic;
+
     @Column(length = 2000)
     String shortDetail;
 
@@ -37,4 +38,7 @@ public class News {
     // One news can have many comments
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
+
+    // 🟢 Hidden flag
+    private Boolean hidden = false;
 }

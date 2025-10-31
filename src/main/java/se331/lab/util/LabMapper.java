@@ -10,8 +10,9 @@ import se331.lab.entity.*;
 public interface LabMapper {
     LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
 
-    // Map News -> NewsDto
+    // Map News -> NewsDto, include hidden
     @Mapping(source = "reporter.name", target = "reporterName")
+    @Mapping(source = "hidden", target = "hidden") // 🟢 map hidden field
     NewsDto getNewsDto(News news);
 
     List<NewsDto> getNewsDto(List<News> newsList);
@@ -21,6 +22,7 @@ public interface LabMapper {
     ReporterDTO getReporterDTO(Reporter reporter);
 
     List<ReporterDTO> getReporterDTO(List<Reporter> reporters);
+
     @Mapping(target = "roles", source = "user.roles")
-    ReporterAuthDTO getReporterAuthDTO(Reporter organizer);
+    ReporterAuthDTO getReporterAuthDTO(Reporter reporter);
 }

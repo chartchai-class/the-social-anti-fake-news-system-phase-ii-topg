@@ -15,4 +15,7 @@ public class NewsDto {
     String date;
     String time;
     List<String> images;
+
+    // 🟢 Optional: include hidden status
+    Boolean hidden;
 }

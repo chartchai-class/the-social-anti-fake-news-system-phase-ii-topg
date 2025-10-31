@@ -101,4 +101,27 @@ public class NewsController {
 
         return ResponseEntity.ok(LabMapper.INSTANCE.getNewsDto(output));
     }
+    // 🟢 PATCH endpoint to hide a news item (admins only)
+    @PatchMapping("/news/{id}/hide")
+    public ResponseEntity<?> hideNews(@PathVariable Long id) {
+        // Get logged-in user
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Only admins can hide news
+        if (!currentUser.getRoles().contains(se331.lab.security.user.Role.ROLE_ADMIN)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("❌ Access Denied");
+        }
+
+        // Find news
+        News news = newsService.getNews(id);
+        if (news == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Hide news
+        news.setHidden(true); // make sure News entity has a 'hidden' field
+        newsService.save(news);
+
+        return ResponseEntity.ok("News hidden successfully");
+    }
 }
