@@ -44,5 +44,10 @@ public class NewsServiceImpl implements NewsService {
         return newsDao.getNews(pageSize, page, status);
     }
 
+    @Override
+    public Page<News> getAdminNews(Integer pageSize, Integer page, String status) {
+        return newsDao.getAdminNews(pageSize, page, status);
+    }
+
     
 }

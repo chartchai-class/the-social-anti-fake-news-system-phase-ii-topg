@@ -14,4 +14,11 @@ public interface NewsDao {
     Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable);
 
     Page<News> getNews(Integer pageSize, Integer page, String status);
+
+    Page<News> getNewsAll(Pageable pageable, String status);
+
+    Page<News> getNewsVisibleOnly(Pageable pageable, String status);
+
+    Page<News> getAdminNews(Integer pageSize, Integer page, String status);
+    Page<News> getNewsByStatusVisibleOnly(Pageable pageable, String status);
 }

@@ -31,7 +31,8 @@ public class NewsController {
     public ResponseEntity<?> getNewsList(
             @RequestParam(value = "_limit", required = false) Integer perPage,
             @RequestParam(value = "_page", required = false) Integer page,
-            @RequestParam(value = "status", required = false) String status
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "isAdmin", required = false, defaultValue = "false") boolean isAdmin
     ) {
         perPage = (perPage == null) ? 3 : perPage;
         page = (page == null) ? 1 : page;
@@ -57,6 +58,15 @@ public class NewsController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The given id is not found");
         }
+    }
+
+    @PatchMapping("/news/{id}/delete")
+    public ResponseEntity<?> softDelete(@PathVariable Long id) {
+        News deleted = newsService.softDelete(id);
+        if (deleted == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "News not found");
+        }
+        return ResponseEntity.ok("News marked as deleted");
     }
 
     @GetMapping("news/search")

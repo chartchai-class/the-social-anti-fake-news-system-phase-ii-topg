@@ -21,6 +21,16 @@ public class News {
     @Column(length = 5000)
     String longDetail;
 
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted = false;
+
+    @PrePersist
+    public void prePersist() {
+        if (isDeleted == null) {
+            isDeleted = false;
+        }
+    }
+
     Integer trueVotes;
     Integer falseVotes;
     String date;

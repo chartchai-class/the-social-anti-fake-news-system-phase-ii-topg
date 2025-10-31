@@ -11,4 +11,6 @@ public interface NewsService {
     Page<News> getNews(Integer pageSize, Integer page, String status);
     News getNews(Long id);
     News save(News news);
+    Page<News> getAdminNews(Integer pageSize, Integer page, String status);
+    News softDelete(Long id);
 }

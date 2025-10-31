@@ -45,4 +45,6 @@ public class NewsDaoImpl implements NewsDao {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         return newsRepository.findByStatus(status, pageable);
     }
+
+    
 }
