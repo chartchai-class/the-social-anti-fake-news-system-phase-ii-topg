@@ -17,6 +17,7 @@ import se331.lab.repository.ReporterRepository;
 import se331.lab.service.NewsService;
 import se331.lab.util.LabMapper;
 import se331.lab.security.user.User;
+import se331.lab.security.user.Role;
 import se331.lab.entity.Reporter;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -37,7 +38,12 @@ public class NewsController {
         page = (page == null) ? 1 : page;
         status = (status == null) ? "all" : status;
 
-        Page<News> pageOutput = newsService.getNews(perPage, page, status);
+        // Check if user is admin
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean isAdmin = currentUser.getRoles().contains(Role.ROLE_ADMIN);
+
+        // Pass isAdmin flag to service
+        Page<News> pageOutput = newsService.getNews(perPage, page, status, isAdmin);
 
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.set("x-total-count", String.valueOf(pageOutput.getTotalElements()));
@@ -68,11 +74,15 @@ public class NewsController {
         page = (page == null) ? 1 : page;
         perPage = (perPage == null) ? 3 : perPage;
 
+        // Check if user is admin
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean isAdmin = currentUser.getRoles().contains(Role.ROLE_ADMIN);
+
         // Pageable object
         Pageable pageable = PageRequest.of(page - 1, perPage);
 
-        // Call service method
-        Page<News> pageOutput = newsService.getNews(query, pageable);
+        // Call service method with isAdmin flag
+        Page<News> pageOutput = newsService.getNews(query, pageable, isAdmin);
 
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.set("x-total-count", String.valueOf(pageOutput.getTotalElements()));
@@ -101,14 +111,15 @@ public class NewsController {
 
         return ResponseEntity.ok(LabMapper.INSTANCE.getNewsDto(output));
     }
-    // 🟢 PATCH endpoint to hide a news item (admins only)
+
+    // PATCH endpoint to hide a news item (admins only)
     @PatchMapping("/news/{id}/hide")
     public ResponseEntity<?> hideNews(@PathVariable Long id) {
         // Get logged-in user
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         // Only admins can hide news
-        if (!currentUser.getRoles().contains(se331.lab.security.user.Role.ROLE_ADMIN)) {
+        if (!currentUser.getRoles().contains(Role.ROLE_ADMIN)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("❌ Access Denied");
         }
 
@@ -119,9 +130,33 @@ public class NewsController {
         }
 
         // Hide news
-        news.setHidden(true); // make sure News entity has a 'hidden' field
+        news.setHidden(true);
         newsService.save(news);
 
         return ResponseEntity.ok("News hidden successfully");
+    }
+
+    // PATCH endpoint to unhide a news item (admins only)
+    @PatchMapping("/news/{id}/unhide")
+    public ResponseEntity<?> unhideNews(@PathVariable Long id) {
+        // Get logged-in user
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Only admins can unhide news
+        if (!currentUser.getRoles().contains(Role.ROLE_ADMIN)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("❌ Access Denied");
+        }
+
+        // Find news
+        News news = newsService.getNews(id);
+        if (news == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Unhide news
+        news.setHidden(false);
+        newsService.save(news);
+
+        return ResponseEntity.ok("News unhidden successfully");
     }
 }

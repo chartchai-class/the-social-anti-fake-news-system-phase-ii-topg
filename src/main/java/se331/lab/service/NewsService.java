@@ -9,6 +9,8 @@ public interface NewsService {
     Page<News> getNews(Integer pageSize, Integer page);
     Page<News> getNews(String query, Pageable pageable);
     Page<News> getNews(Integer pageSize, Integer page, String status);
+    Page<News> getNews(Integer pageSize, Integer page, String status, boolean isAdmin);
+    Page<News> getNews(String query, Pageable pageable, boolean isAdmin);
     News getNews(Long id);
     News save(News news);
 }
