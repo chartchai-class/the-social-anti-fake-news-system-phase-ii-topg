@@ -18,6 +18,7 @@ public class CommentDto {
     private String vote;
     private Instant createdAt;
     private List<String> images;
+    private Boolean hidden;
 
     // Convert Comment entity to DTO
     public CommentDto(Comment comment) {

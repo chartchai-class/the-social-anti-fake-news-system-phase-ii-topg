@@ -28,4 +28,5 @@ public class Comment {
 
     @ElementCollection
     private List<String> images;
-}
+
+    private Boolean hidden = false;}
