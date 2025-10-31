@@ -44,5 +44,15 @@ public class NewsServiceImpl implements NewsService {
         return newsDao.getNews(pageSize, page, status);
     }
 
-    
+    // NEW: With isAdmin parameter for status filtering
+    @Override
+    public Page<News> getNews(Integer pageSize, Integer page, String status, boolean isAdmin) {
+        return newsDao.getNews(pageSize, page, status, isAdmin);
+    }
+
+    // NEW: With isAdmin parameter for search
+    @Override
+    public Page<News> getNews(String query, Pageable pageable, boolean isAdmin) {
+        return newsDao.getNewsByTopicOrShortDetailOrReporter(query, query, query, pageable, isAdmin);
+    }
 }

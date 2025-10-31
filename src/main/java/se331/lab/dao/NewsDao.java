@@ -13,5 +13,11 @@ public interface NewsDao {
     // Search by topic, shortDetail, or reporter
     Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable);
 
+    // NEW: Search with isAdmin flag
+    Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable, boolean isAdmin);
+
     Page<News> getNews(Integer pageSize, Integer page, String status);
+
+    // NEW: Get news with isAdmin flag
+    Page<News> getNews(Integer pageSize, Integer page, String status, boolean isAdmin);
 }

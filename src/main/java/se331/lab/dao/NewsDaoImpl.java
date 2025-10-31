@@ -40,9 +40,32 @@ public class NewsDaoImpl implements NewsDao {
         );
     }
 
+    // NEW: Search with isAdmin flag
+    @Override
+    public Page<News> getNewsByTopicOrShortDetailOrReporter(String topic, String shortDetail, String reporter, Pageable pageable, boolean isAdmin) {
+        if (isAdmin) {
+            return newsRepository.findByTopicIgnoreCaseContainingOrShortDetailIgnoreCaseContainingOrReporter_NameIgnoreCaseContaining(
+                    topic, shortDetail, reporter, pageable
+            );
+        } else {
+            return newsRepository.findByKeywordExcludingHidden(topic, pageable);
+        }
+    }
+
     @Override
     public Page<News> getNews(Integer pageSize, Integer page, String status) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         return newsRepository.findByStatus(status, pageable);
+    }
+
+    // NEW: Get news with isAdmin flag
+    @Override
+    public Page<News> getNews(Integer pageSize, Integer page, String status, boolean isAdmin) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        if (isAdmin) {
+            return newsRepository.findByStatus(status, pageable);
+        } else {
+            return newsRepository.findByStatusExcludingHidden(status, pageable);
+        }
     }
 }
